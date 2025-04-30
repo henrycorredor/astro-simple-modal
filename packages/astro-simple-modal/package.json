@@ -2,7 +2,7 @@
   "name": "astro-simple-modal",
   "version": "1.0.0",
   "description": "",
-  "main": "index.astro",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

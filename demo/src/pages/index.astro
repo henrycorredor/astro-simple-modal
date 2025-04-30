@@ -3,23 +3,28 @@ import Modal from "astro-simple-modal"
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+<head>
+		<meta charset="utf-8"/>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+		<meta name="viewport" content="width=device-width"/>
+		<meta name="generator" content={Astro.generator}/>
 		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	no tiene ni estilos ala
-		<Modal />
-	</body>
+</head>
+<body>
+<h1>Astro</h1>
+no tiene ni estilos ala
+<Modal id="probando">
+		el contenido desde la página de prueba
+</Modal>
+<button type="button" id="btn-probando">Probando</button>
+</body>
 </html>
 
+<script>
+	import {modalHandler} from "astro-simple-modal"
 
-<style>
-	body {
-					font-family: sans-serif;
-	}
-</style>
+	document.querySelector("#btn-probando")?.addEventListener("click", () => {
+		console.log('miau')
+		modalHandler.saludar()
+	})
+</script>

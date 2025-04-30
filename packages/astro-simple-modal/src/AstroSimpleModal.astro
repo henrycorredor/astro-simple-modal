@@ -1,0 +1,76 @@
+---
+interface Props {
+  id: string | number
+}
+
+const {id} = Astro.props
+---
+<div id={`simple-modal-${id}`} class="simple-modal modal-full-screen">
+		<div class="simple-modal-content">
+				<slot/>
+		</div>
+		<div id={`simple-modal-${id}-background`} class="simple-modal-background modal-full-screen"></div>
+</div>
+
+<style>
+  .modal-full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .simple-modal {
+    font-weight: bold;
+    transition: opacity .3s;
+  }
+
+  .simple-modal.hide {
+    display: none;
+  }
+
+  .simple-modal.prepare {
+    opacity: 0;
+  }
+
+  .simple-modal.prepare, .simple-modal.show {
+    opacity: 1;
+  }
+
+  .simple-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: .5rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .simple-modal-background {
+    position: fixed;
+
+    background-color: black;
+    opacity: 0.5;
+  }
+
+  .simple-modal-content {
+    height: fit-content;
+    max-height: 90vh;
+    min-height: fit-content;
+    background: white;
+    z-index: 100;
+  }
+</style>
+
+<script define:vars={{modalId: id}}>
+  document.querySelector(`#simple-modal-${modalId}-background`)?.addEventListener('click', () => {
+		const modal = document.querySelector(`#simple-modal-${modalId}`);
+		if (modal) {
+			const modalShow = modal.classList.contains('show');
+			modal.classList.toggle('show', !modalShow);
+			modal.classList.toggle('hide', modalShow);
+		}
+  });
+</script>
