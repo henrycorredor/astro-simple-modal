@@ -1,18 +1,36 @@
 ---
 interface Props {
   id: string | number
+  styles?: {
+    backgroundOpacity?: number
+    transitionDuration?: string
+    backgroundColor?: string
+    contentBackgroundColor?: string
+    contentPadding?: string
+    borderRadius?: string
+  }
 }
 
-const {id} = Astro.props
+const {
+  id,
+  styles: {
+    backgroundOpacity = 0.5,
+    transitionDuration = '.3s',
+    backgroundColor = 'black',
+    contentBackgroundColor = 'white',
+    contentPadding = '1rem 1.5rem',
+    borderRadius = '.5rem'
+  } = {}
+} = Astro.props
 ---
-<div id={`simple-modal-${id}`} class="simple-modal modal-full-screen">
+<div id={`simple-modal-${id}`} class="simple-modal modal-full-screen hide">
 		<div class="simple-modal-content">
 				<slot/>
 		</div>
 		<div id={`simple-modal-${id}-background`} class="simple-modal-background modal-full-screen"></div>
 </div>
 
-<style>
+<style is:global>
   .modal-full-screen {
     position: fixed;
     top: 0;
@@ -23,18 +41,18 @@ const {id} = Astro.props
 
   .simple-modal {
     font-weight: bold;
-    transition: opacity .3s;
   }
 
   .simple-modal.hide {
     display: none;
   }
 
-  .simple-modal.prepare {
+  .simple-modal.fade,
+  .simple-modal.fade.show {
     opacity: 0;
   }
 
-  .simple-modal.prepare, .simple-modal.show {
+  .simple-modal.show {
     opacity: 1;
   }
 
@@ -42,35 +60,56 @@ const {id} = Astro.props
     position: absolute;
     top: 50%;
     left: 50%;
-    background: white;
-    padding: 1rem 1.5rem;
-    border-radius: .5rem;
+    height: fit-content;
+    max-height: 90vh;
+    min-height: fit-content;
     transform: translate(-50%, -50%);
+    z-index: 1;
   }
 
   .simple-modal-background {
     position: fixed;
+    z-index: 0;
+  }
+</style>
 
-    background-color: black;
-    opacity: 0.5;
+<style define:vars={{
+  backgroundOpacity,
+  transitionDuration,
+  backgroundColor,
+  contentBackgroundColor,
+  contentPadding,
+  borderRadius
+}}>
+  .simple-modal {
+    transition: opacity var(--transitionDuration);
   }
 
   .simple-modal-content {
-    height: fit-content;
-    max-height: 90vh;
-    min-height: fit-content;
-    background: white;
-    z-index: 100;
+    background: var(--contentBackgroundColor);
+    padding: var(--contentPadding);
+    border-radius: var(--borderRadius);
+  }
+
+  .simple-modal-background {
+    background-color: var(--backgroundColor);
+    opacity: var(--backgroundOpacity);
   }
 </style>
 
 <script define:vars={{modalId: id}}>
-  document.querySelector(`#simple-modal-${modalId}-background`)?.addEventListener('click', () => {
-		const modal = document.querySelector(`#simple-modal-${modalId}`);
-		if (modal) {
-			const modalShow = modal.classList.contains('show');
-			modal.classList.toggle('show', !modalShow);
-			modal.classList.toggle('hide', modalShow);
-		}
-  });
+  const modal = document.querySelector(`#simple-modal-${modalId}`)
+  if (modal) {
+    modal.addEventListener("transitionend", (event) => {
+      const {target} = event;
+      if (Array.from(target.classList).includes('fade-out')) {
+        target.classList.remove('fade', 'show', 'fade-out')
+        target.classList.add('hide')
+      }
+    })
+
+    document.querySelector(`#simple-modal-${modalId}-background`)?.addEventListener('click', () => {
+      modal.classList.add('fade', 'fade-out')
+    })
+  }
 </script>

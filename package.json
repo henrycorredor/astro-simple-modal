@@ -10,5 +10,8 @@
   "workspaces": [
     "demo",
     "packages/astro-simple-modal"
-  ]
+  ],
+  "devDependencies": {
+    "@types/node": "^22.15.16"
+  }
 }

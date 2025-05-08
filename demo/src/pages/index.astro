@@ -1,5 +1,5 @@
 ---
-import Modal from "astro-simple-modal"
+import SimpleModal from "astro-simple-modal"
 ---
 
 <html lang="en">
@@ -12,19 +12,57 @@ import Modal from "astro-simple-modal"
 </head>
 <body>
 <h1>Astro</h1>
-no tiene ni estilos ala
-<Modal id="probando">
-		el contenido desde la página de prueba
-</Modal>
-<button type="button" id="btn-probando">Probando</button>
+<p>This is the demo page for Astro Simple Modal</p>
+<p>
+		<button type="button" id="basic-modal-open-btn">Run modal</button> <br />
+	<button type="button" id="second-modal-open-btn">Run second modal</button>
+</p>
+<SimpleModal id="basic-modal">
+	<p>Basic modal content</p>
+	<p>
+		<button type="button" id="close-basic-modal-btn">Close modal</button>
+	</p>
+</SimpleModal>
+<SimpleModal id={125} styles={{
+	backgroundOpacity: 0.1,
+	transitionDuration: '1s',
+	backgroundColor: 'red',
+	contentBackgroundColor: 'green',
+	contentPadding: '0',
+	borderRadius: '0'
+}}>
+	<h1>Modal with a number as ID</h1>
+</SimpleModal>
 </body>
 </html>
 
 <script>
-	import {modalHandler} from "astro-simple-modal"
+  import {modalHandler} from "astro-simple-modal"
 
-	document.querySelector("#btn-probando")?.addEventListener("click", () => {
-		console.log('miau')
-		modalHandler.saludar()
+	function getDOMElement(query: string) {
+		return document.querySelector(query)
+	}
+
+	getDOMElement("#basic-modal-open-btn")?.addEventListener("click", () => {
+		modalHandler.open('basic-modal')?.then(() => {
+			console.log('Modal opened - .then promise handle')
+		})
+  })
+
+	getDOMElement("#close-basic-modal-btn")?.addEventListener("click", async () => {
+		await modalHandler.close('basic-modal')
+		console.log('Modal closed - async handle')
+	})
+
+	modalHandler.onClose('basic-modal', ()=>{
+		console.log('Modal closed - global event handler')
+	})
+
+	modalHandler.onOpen('basic-modal', ()=>{
+		console.log('Modal opened - global event handler')
+	})
+
+	getDOMElement("#second-modal-open-btn")?.addEventListener("click", ()=>{
+		modalHandler.open(125)
 	})
 </script>
