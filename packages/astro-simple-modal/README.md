@@ -30,7 +30,7 @@ pnpm add astro-simple-modal
 
 ```javascript
 ---
-import SimpleModal from 'astro-basic-modal';
+import SimpleModal from 'astro-simple-modal';
 ---
 
 <button type="button" id="modal-open-btn">Open modal</button>
