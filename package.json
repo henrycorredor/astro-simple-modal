@@ -1,12 +1,16 @@
 {
   "name": "astro-simple-modal-monorepo",
+  "private": true,
   "version": "1.0.1",
   "description": "Highly customizable modal for Astro — simple to use and easy to style.",
   "main": "index.js",
-  "private": true,
+  "type": "module",
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henrycorredor/astro-simple-modal.git"
+  },
+  "license": "MIT",
   "workspaces": [
     "demo",
     "packages/astro-simple-modal"
