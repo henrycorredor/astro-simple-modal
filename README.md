@@ -4,7 +4,7 @@ A **simple** and **highly customizable** modal for Astro — minimal setup, full
 
 ## 🧾 Overview
 
-Astro Simple Modal is a lightweight modal component built specifically for Astro. It renders a simple overlay modal with optional fade-in and fade-out behavior. It includes no default titles, buttons, or layout — leaving the full content and structure under the developer's control.
+Astro Simple Modal is a lightweight modal component built specifically for Astro. It renders a simple overlay modal with fade-in and fade-out behavior. It includes no default titles, buttons, or layout — leaving the full content and structure under the developer's control.
 
 ## ✅ Features
 
