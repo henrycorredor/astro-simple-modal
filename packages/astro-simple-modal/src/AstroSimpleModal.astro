@@ -8,6 +8,7 @@ interface Props {
     contentBackgroundColor?: string
     contentPadding?: string
     borderRadius?: string
+    color?: string
   }
 }
 
@@ -19,7 +20,8 @@ const {
     backgroundColor = 'black',
     contentBackgroundColor = 'white',
     contentPadding = '1rem 1.5rem',
-    borderRadius = '.5rem'
+    borderRadius = '.5rem',
+    color = 'unset'
   } = {}
 } = Astro.props
 ---
@@ -61,7 +63,6 @@ const {
     top: 50%;
     left: 50%;
     height: fit-content;
-    max-height: 90vh;
     min-height: fit-content;
     transform: translate(-50%, -50%);
     z-index: 1;
@@ -79,9 +80,11 @@ const {
   backgroundColor,
   contentBackgroundColor,
   contentPadding,
-  borderRadius
+  borderRadius,
+  color
 }}>
   .simple-modal {
+    color: var(--color);
     transition: opacity var(--transitionDuration);
   }
 

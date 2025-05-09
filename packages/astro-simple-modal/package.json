@@ -1,12 +1,33 @@
 {
   "name": "astro-simple-modal",
+  "description": "Highly customizable modal for Astro — simple to use and easy to style.",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "author": "Henry Corredor",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henrycorredor/astro-simple-modal.git",
+    "directory": "packages/astro-simple-modal"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "homepage": "https://github.com/henrycorredor/astro-simple-modal",
+  "bugs": {
+    "url": "https://github.com/henrycorredor/astro-simple-modal/issues"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "src","index.ts"
+  ],
+  "main": "index.ts",
+  "keywords": [
+    "astro-component",
+    "astro",
+    "withastro",
+    "modal",
+    "simple-modal",
+    "ui",
+    "component"
+  ]
 }

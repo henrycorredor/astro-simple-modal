@@ -11,58 +11,129 @@ import SimpleModal from "astro-simple-modal"
 		<title>Astro</title>
 </head>
 <body>
+
 <h1>Astro</h1>
 <p>This is the demo page for Astro Simple Modal</p>
-<p>
-		<button type="button" id="basic-modal-open-btn">Run modal</button> <br />
-	<button type="button" id="second-modal-open-btn">Run second modal</button>
-</p>
+<div class="buttons-box">
+		<button type="button" id="basic-modal-open-btn">Basic</button>
+		<button type="button" id="second-modal-open-btn">Full customised styles</button>
+		<button type="button" id="big-content-open-btn">Big content</button>
+</div>
+
 <SimpleModal id="basic-modal">
-	<p>Basic modal content</p>
-	<p>
-		<button type="button" id="close-basic-modal-btn">Close modal</button>
-	</p>
+		<p>Basic modal content</p>
+		<p>
+				<button type="button" id="close-basic-modal-btn">Close modal</button>
+		</p>
 </SimpleModal>
+
 <SimpleModal id={125} styles={{
-	backgroundOpacity: 0.1,
-	transitionDuration: '1s',
-	backgroundColor: 'red',
-	contentBackgroundColor: 'green',
-	contentPadding: '0',
-	borderRadius: '0'
+  backgroundOpacity: 0.8,
+  transitionDuration: '.8s',
+  backgroundColor: '#042940',
+  contentBackgroundColor: '#DBF227',
+  contentPadding: '1rem 3rem',
+  borderRadius: '9999px',
+  color: '#005C53'
 }}>
-	<h1>Modal with a number as ID</h1>
+		<h1>Modal with a number as ID</h1>
+		<p>All styles on this modal were customised</p>
 </SimpleModal>
+
+<SimpleModal id="big-content">
+	<div style={{
+		textAlign: "end",
+		marginBottom: ".5rem"
+	}}>
+		<button type="button" id="big-content-close-btn">Close modal</button>
+	</div>
+	<div class="big-content-container">
+		<div class="div-pattern" style={{
+			width: '2500px',
+			marginBottom: "1rem"
+		}}>
+			Very wide box
+		</div>
+		<div class="div-pattern" style={{
+			height: '2500px',
+			width: 'fit-content',
+			margin: "0 auto"
+		}}>
+			Very tall box
+		</div>
+	</div>
+</SimpleModal>
+
 </body>
 </html>
+
+<style is:global>
+	html, body{
+		height: 100%;
+	}
+
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+		margin: 0;
+		padding: 0;
+    font-family: sans-serif;
+  }
+
+  .buttons-box {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .div-pattern {
+		padding: 1rem;
+		border-radius: .5rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Cline x1='0' y1='4' x2='4' y2='0' stroke='lightgray' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+	.big-content-container{
+		max-height: 90vh;
+		max-width: 90vw;
+		overflow-x: auto;
+	}
+</style>
 
 <script>
   import {modalHandler} from "astro-simple-modal"
 
-	function getDOMElement(query: string) {
-		return document.querySelector(query)
-	}
+  function getDOMElement(query: string) {
+    return document.querySelector(query)
+  }
 
-	getDOMElement("#basic-modal-open-btn")?.addEventListener("click", () => {
-		modalHandler.open('basic-modal')?.then(() => {
-			console.log('Modal opened - .then promise handle')
-		})
+  getDOMElement("#basic-modal-open-btn")?.addEventListener("click", () => {
+    modalHandler.open('basic-modal')?.then(() => {
+      console.log('Modal opened - .then promise handle')
+    })
   })
 
-	getDOMElement("#close-basic-modal-btn")?.addEventListener("click", async () => {
-		await modalHandler.close('basic-modal')
-		console.log('Modal closed - async handle')
-	})
+  getDOMElement("#close-basic-modal-btn")?.addEventListener("click", async () => {
+    await modalHandler.close('basic-modal')
+    console.log('Modal closed - async handle')
+  })
 
-	modalHandler.onClose('basic-modal', ()=>{
-		console.log('Modal closed - global event handler')
-	})
+  modalHandler.onClose('basic-modal', () => {
+    console.log('Modal closed - global event handler')
+  })
 
-	modalHandler.onOpen('basic-modal', ()=>{
-		console.log('Modal opened - global event handler')
-	})
+  modalHandler.onOpen('basic-modal', () => {
+    console.log('Modal opened - global event handler')
+  })
 
-	getDOMElement("#second-modal-open-btn")?.addEventListener("click", ()=>{
-		modalHandler.open(125)
-	})
+  function addOpenModalEvent(buttonId: string, modalId: string | number, action: 'open' | 'close' =  'open') {
+    document.querySelector(`#${buttonId}`)?.addEventListener("click", () => {
+			modalHandler[action]?.(`${modalId}`)
+    })
+  }
+
+  addOpenModalEvent("second-modal-open-btn", 125)
+  addOpenModalEvent("big-content-open-btn", "big-content")
+  addOpenModalEvent("big-content-close-btn", "big-content", "close")
 </script>

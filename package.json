@@ -1,7 +1,7 @@
 {
   "name": "astro-simple-modal-monorepo",
   "version": "1.0.0",
-  "description": "Customizable and responsive modal for Astro — simple to use and easy to style.",
+  "description": "Highly customizable modal for Astro — simple to use and easy to style.",
   "main": "index.js",
   "private": true,
   "keywords": [],
