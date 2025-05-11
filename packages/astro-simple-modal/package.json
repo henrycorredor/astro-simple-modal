@@ -1,7 +1,7 @@
 {
   "name": "astro-simple-modal",
   "description": "Highly customizable modal for Astro — simple to use and easy to style.",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "author": "Henry Corredor",
   "license": "MIT",
   "repository": {
