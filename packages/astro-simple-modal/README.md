@@ -99,15 +99,17 @@ modalHandler.onClose('my-modal', () => {
   contentBackgroundColor: '#DBF227',
   contentPadding: '1rem 3rem',
   borderRadius: '9999px',
-  color: '#005C53'
+  color: '#005C53',
+  zIndex: 100
 }}>
    <span>Content</span>
 </SimpleModal>
 ```
 
-## Common Issues & Solutions
+## ⚠️ Common Issues & Solutions
 
-- **Z-index Overlapping Issues:** The modal is positioned using `position: fixed`, so if there are no other fixed-position elements on your page, the modal shouldn't have overlapping problems. However, if there are other fixed-position elements, you can check their z-index value and assign a higher one to the modal via `{styles = {zIndex: number}}`.
+### Z-index Overlapping Issues
+The modal is positioned using `position: fixed`, so if there are no other fixed-position elements on your page, the modal shouldn't have overlapping problems. However, if there are other fixed-position elements, you can check their z-index value and assign a higher one to the modal via `{styles = {zIndex: number}}`.
 
 ```jsx
 <SimpleModal id="higher-z-index" styles={{
@@ -117,7 +119,9 @@ modalHandler.onClose('my-modal', () => {
 </SimpleModal>
 ```
 
-- **Large Content Issues:** Astro Simple Modal doesn't have built-in scroll handling for content that exceeds its default boundaries. Since it's positioned as fixed and has no size limits, if the content is larger than the viewport, it will overflow and become hidden without any way to view it. To solve this, you need to place the content in a wrapper container and manage it accordingly.
+### Large Content Issues:
+
+Astro Simple Modal doesn't have built-in scroll handling for content that exceeds its default boundaries. Since it's positioned as fixed and has no size limits, if the content is larger than the viewport, it will overflow and become hidden without any way to view it. To solve this, you need to place the content in a wrapper container and manage it accordingly.
 
 ```jsx
 <SimpleModal id="big-content">
