@@ -104,3 +104,45 @@ modalHandler.onClose('my-modal', () => {
    <span>Content</span>
 </SimpleModal>
 ```
+
+## Common Issues & Solutions
+
+- **Z-index Overlapping Issues:** The modal is positioned using `position: fixed`, so if there are no other fixed-position elements on your page, the modal shouldn't have overlapping problems. However, if there are other fixed-position elements, you can check their z-index value and assign a higher one to the modal via `{styles = {zIndex: number}}`.
+
+```jsx
+<SimpleModal id="higher-z-index" styles={{
+  zIndex: 1000
+}}>
+  <!-- content -->
+</SimpleModal>
+```
+
+- **Large Content Issues:** Astro Simple Modal doesn't have built-in scroll handling for content that exceeds its default boundaries. Since it's positioned as fixed and has no size limits, if the content is larger than the viewport, it will overflow and become hidden without any way to view it. To solve this, you need to place the content in a wrapper container and manage it accordingly.
+
+```jsx
+<SimpleModal id="big-content">
+  <div class="big-content-container">
+    <div style={{
+      width: '2500px',
+      marginBottom: "1rem"
+    }}>
+      Very wide box
+    </div>
+    <div style={{
+      height: '2500px',
+      width: 'fit-content',
+      margin: "0 auto"
+    }}>
+      Very tall box
+    </div>
+  </div>
+</SimpleModal>
+
+<style>
+  .big-content-container{
+    max-height: 90vh;
+    max-width: 90vw;
+    overflow: auto;
+  }
+</style>
+```

@@ -4,27 +4,28 @@ import SimpleModal from "astro-simple-modal"
 
 <html lang="en">
 <head>
-		<meta charset="utf-8"/>
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-		<meta name="viewport" content="width=device-width"/>
-		<meta name="generator" content={Astro.generator}/>
-		<title>Astro</title>
+  <meta charset="utf-8"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <meta name="viewport" content="width=device-width"/>
+  <meta name="generator" content={Astro.generator}/>
+  <title>Astro</title>
 </head>
 <body>
 
 <h1>Astro</h1>
 <p>This is the demo page for Astro Simple Modal</p>
 <div class="buttons-box">
-		<button type="button" id="basic-modal-open-btn">Basic</button>
-		<button type="button" id="second-modal-open-btn">Full customised styles</button>
-		<button type="button" id="big-content-open-btn">Big content</button>
+  <button type="button" id="basic-modal-open-btn">Basic</button>
+  <button type="button" id="second-modal-open-btn">Full customised styles</button>
+  <button type="button" id="big-content-open-btn">Big content</button>
 </div>
 
 <SimpleModal id="basic-modal">
-		<p>Basic modal content</p>
-		<p>
-				<button type="button" id="close-basic-modal-btn">Close modal</button>
-		</p>
+  <p>Basic modal content</p>
+  <p>
+    <button type="button" id="close-basic-modal-btn">Close modal</button>
+    <button type="button" id="open-overlap-modal-btn">Open overlap modal</button>
+  </p>
 </SimpleModal>
 
 <SimpleModal id={125} styles={{
@@ -36,49 +37,52 @@ import SimpleModal from "astro-simple-modal"
   borderRadius: '9999px',
   color: '#005C53'
 }}>
-		<h1>Modal with a number as ID</h1>
-		<p>All styles on this modal were customised</p>
+  <h1>Modal with a number as ID</h1>
+  <p>All styles on this modal were customised</p>
 </SimpleModal>
 
 <SimpleModal id="big-content">
-	<div style={{
-		textAlign: "end",
-		marginBottom: ".5rem"
-	}}>
-		<button type="button" id="big-content-close-btn">Close modal</button>
-	</div>
-	<div class="big-content-container">
-		<div class="div-pattern" style={{
-			width: '2500px',
-			marginBottom: "1rem"
-		}}>
-			Very wide box
-		</div>
-		<div class="div-pattern" style={{
-			height: '2500px',
-			width: 'fit-content',
-			margin: "0 auto"
-		}}>
-			Very tall box
-		</div>
-	</div>
+  <div style={{
+    textAlign: "end",
+    marginBottom: ".5rem"
+  }}>
+    <button type="button" id="big-content-close-btn">Close modal</button>
+  </div>
+  <div class="big-content-container">
+    <div class="div-pattern" style={{
+      width: '2500px',
+      marginBottom: "1rem"
+    }}>
+      Very wide box
+    </div>
+    <div class="div-pattern" style={{
+      height: '2500px',
+      width: 'fit-content',
+      margin: "0 auto"
+    }}>
+      Very tall box
+    </div>
+  </div>
+</SimpleModal>
+<SimpleModal id="overlap-modal">
+  <h1>This is a modal over a modal</h1>
 </SimpleModal>
 
 </body>
 </html>
 
 <style is:global>
-	html, body{
-		height: 100%;
-	}
+  html, body {
+    height: 100%;
+  }
 
   body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-		margin: 0;
-		padding: 0;
+    margin: 0;
+    padding: 0;
     font-family: sans-serif;
   }
 
@@ -88,17 +92,17 @@ import SimpleModal from "astro-simple-modal"
   }
 
   .div-pattern {
-		padding: 1rem;
-		border-radius: .5rem;
+    padding: 1rem;
+    border-radius: .5rem;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Cline x1='0' y1='4' x2='4' y2='0' stroke='lightgray' stroke-width='1'/%3E%3C/svg%3E");
     background-repeat: repeat;
   }
 
-	.big-content-container{
-		max-height: 90vh;
-		max-width: 90vw;
-		overflow-x: auto;
-	}
+  .big-content-container {
+    max-height: 90vh;
+    max-width: 90vw;
+    overflow-x: auto;
+  }
 </style>
 
 <script>
@@ -127,13 +131,14 @@ import SimpleModal from "astro-simple-modal"
     console.log('Modal opened - global event handler')
   })
 
-  function addOpenModalEvent(buttonId: string, modalId: string | number, action: 'open' | 'close' =  'open') {
+  function addOpenModalEvent(buttonId: string, modalId: string | number, action: 'open' | 'close' = 'open') {
     document.querySelector(`#${buttonId}`)?.addEventListener("click", () => {
-			modalHandler[action]?.(`${modalId}`)
+      modalHandler[action]?.(`${modalId}`)
     })
   }
 
   addOpenModalEvent("second-modal-open-btn", 125)
   addOpenModalEvent("big-content-open-btn", "big-content")
   addOpenModalEvent("big-content-close-btn", "big-content", "close")
+  addOpenModalEvent("open-overlap-modal-btn", "overlap-modal")
 </script>

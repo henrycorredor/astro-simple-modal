@@ -9,6 +9,7 @@ interface Props {
     contentPadding?: string
     borderRadius?: string
     color?: string
+    zIndex?: number
   }
 }
 
@@ -21,15 +22,16 @@ const {
     contentBackgroundColor = 'white',
     contentPadding = '1rem 1.5rem',
     borderRadius = '.5rem',
-    color = 'unset'
+    color = 'unset',
+    zIndex = 100
   } = {}
 } = Astro.props
 ---
 <div id={`simple-modal-${id}`} class="simple-modal modal-full-screen hide">
-		<div class="simple-modal-content">
-				<slot/>
-		</div>
-		<div id={`simple-modal-${id}-background`} class="simple-modal-background modal-full-screen"></div>
+  <div class="simple-modal-content">
+    <slot/>
+  </div>
+  <div id={`simple-modal-${id}-background`} class="simple-modal-background modal-full-screen"></div>
 </div>
 
 <style is:global>
@@ -81,11 +83,13 @@ const {
   contentBackgroundColor,
   contentPadding,
   borderRadius,
-  color
+  color,
+  zIndex
 }}>
   .simple-modal {
     color: var(--color);
     transition: opacity var(--transitionDuration);
+    z-index: var(--zIndex);
   }
 
   .simple-modal-content {
