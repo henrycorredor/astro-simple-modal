@@ -38,6 +38,8 @@ function toggleSimpleModal(modalId: string | number, action: 'open' | 'close') {
     modal.classList.add("fade")
 
     if (action === 'open') {
+      modal.parentNode.removeChild(modal)
+      document.body.appendChild(modal)
       modal.classList.remove('hide')
       modal.classList.add('show')
       requestAnimationFrame(() => {
