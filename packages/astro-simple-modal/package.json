@@ -1,7 +1,7 @@
 {
   "name": "astro-simple-modal",
   "description": "Highly customizable modal for Astro — simple to use and easy to style.",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "author": "Henry Corredor",
   "license": "MIT",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "git+https://github.com/henrycorredor/astro-simple-modal.git",
     "directory": "packages/astro-simple-modal"
   },
-  "homepage": "https://github.com/henrycorredor/astro-simple-modal",
+  "homepage": "https://kurilabs.com/projects/astro-simple-modal",
   "bugs": {
     "url": "https://github.com/henrycorredor/astro-simple-modal/issues"
   },
